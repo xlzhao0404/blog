@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="./Public/Admin/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="./Public/Admin/css/main.css"/>
+    <script type="text/javascript" src="./Public/Admin/js/libs/modernizr.min.js"></script>
+    <script type="text/javascript" src="../../../web/home/js/jquery1.42.min.js"></script>
+    <script src = './Public/laydate/laydate.js'></script>
+    <script src="./Public/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+
+{include file = 'left.html'}
+
+<div class="container clearfix">
+
+    <!--左侧菜单栏-->
+
+    <!--左侧菜单栏 begin-->
+    {include file = 'top.html'}
+    <!--左侧菜单栏 begin-->
+
+    <!--右侧主操作区-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font"></i>
+                <a href="?p=back">首页</a>
+                <span class="crumb-step">&gt;</span>
+                <span class="crumb-name">博文管理</span>
+                <span class="crumb-step">&gt;</span>
+                <span class="crumb-name">添加博文</span>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                <form action="?m=Admin&c=Article&a=addHandle" method="post" id="myform" enctype="multipart/form-data">
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                        <tr>
+                            <th><i class="require-red">*</i>所属分类：</th>
+                            <td>
+                                <select name="cid">
+                                    {foreach $data as $val}
+                                    <option style="text-indent:{$val.level}em;" {if $val.level == 1}disabled{/if} value="{$val.id}">{$val.name}</option>
+                                    {/foreach}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>标题：</th>
+                            <td>
+                                <input class="common-text required" name="title" size="50" value="" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>seo标题：</th>
+                            <td>
+                                <input class="common-text required" name="seotitle" size="50" value="" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>关键字：</th>
+                            <td>
+                                <input class="common-text required" name="keywords" size="50" value="" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>描述：</th>
+                            <td>
+                                <input class="common-text required" name="description" size="50" value="" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>作者：</th>
+                            <td>
+                                <input class="common-text required" name="author" size="50" value="" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>发布时间：</th>
+                            <td>
+                                <input id= 'ptime' class="laydate-icon common-text required" name="ptime" size="50" value="" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>配图：</th>
+                            <td>
+                                <input type="file" name="pic" class="common-text required"  >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>简介：</th>
+                            <td>
+                                <textarea name="jianjie" class="common-textarea" cols="100" rows="7"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>内容：</th>
+                            <td>
+                                <textarea id="con" name="content" class="common-textarea" cols="100" rows="20"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <!--/右侧主操作区-->
+</div>
+<script>
+    ;!function () {
+        laydate.skin('dahong')
+        laydate({
+            elem:'#ptime'
+        })
+    }();
+</script>
+<script>
+//    CKEDITOR.replace('con',{
+//        'width':750,
+//        'skin':'moono'
+//    });
+    CKEDITOR.replace('con', {
+        customConfig:'myconfig.js', //使用自定义myconfig.js当做CKeditor的配置文件
+        extraPlugins:'codesnippet',//插件名
+        codeSnippet_theme:'Pojoaque'//插件皮肤
+    });
+</script>
+</body>
+</html>
